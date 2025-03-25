@@ -6,7 +6,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.estrhup.expenseskmp.model.Expense
+import com.estrhup.expenseskmp.model.ExpenseCategory
 import com.estrhup.expenseskmp.ui.AllExpensesHeader
+import com.estrhup.expenseskmp.ui.ExpensesItem
 import com.estrhup.expenseskmp.ui.ExpensesTotalHeader
 
 @Preview(showBackground = true)
@@ -22,5 +25,18 @@ fun ExpensesTotalHeaderPreview() {
 fun AllExpensesHeaderPreview() {
     Box(Modifier.padding(16.dp)) {
         AllExpensesHeader()
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun ExpensesItemPreview() {
+    Box(Modifier.padding(8.dp)) {
+        ExpensesItem(expense = Expense(
+            id = 1L,
+            amount = 30.0,
+            category = ExpenseCategory.PARTY,
+            description = "Weekend"
+        ), onExpenseClick = {})
     }
 }
