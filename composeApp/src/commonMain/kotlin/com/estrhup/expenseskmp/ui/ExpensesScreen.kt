@@ -31,13 +31,14 @@ import androidx.compose.ui.semantics.Role.Companion.Image
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.estrhup.expenseskmp.data.ExpenseManager
 import com.estrhup.expenseskmp.getColorsTheme
 import com.estrhup.expenseskmp.model.Expense
 import expenseskmp.composeapp.generated.resources.Res
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun ExpensesScreen() {
+fun ExpensesScreen(onExpenseClick: (expense: Expense) -> Unit) {
 
     val colors = getColorsTheme()
 
@@ -54,8 +55,8 @@ fun ExpensesScreen() {
             }
         }
         //Items for scrolling
-        items(emptyList<String>()) {
-            // Composable
+        items(ExpenseManager.mockExpenseList) {
+            ExpensesItem(expense = it, onExpenseClick = onExpenseClick)
         }
     }
 }
