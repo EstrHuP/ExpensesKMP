@@ -72,6 +72,10 @@ android {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
     }
+    // Show view in preview
+    buildFeatures {
+        compose = true
+    }
 }
 
 dependencies {
