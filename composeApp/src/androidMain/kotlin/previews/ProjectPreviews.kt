@@ -9,6 +9,7 @@ import androidx.compose.ui.unit.dp
 import com.estrhup.expenseskmp.data.ExpenseManager
 import com.estrhup.expenseskmp.model.Expense
 import com.estrhup.expenseskmp.model.ExpenseCategory
+import com.estrhup.expenseskmp.presentation.ExpensesUiState
 import com.estrhup.expenseskmp.ui.AllExpensesHeader
 import com.estrhup.expenseskmp.ui.ExpensesItem
 import com.estrhup.expenseskmp.ui.ExpensesScreen
@@ -41,5 +42,11 @@ fun ExpensesItemPreview() {
 @Preview(showBackground = true)
 @Composable
 fun ExpenseScreenPreview() {
-    ExpensesScreen {  }
+    ExpensesScreen(
+        uiState = ExpensesUiState(
+            expenses = ExpenseManager.mockExpenseList,
+            total = 10.0
+        ),
+        onExpenseClick = { }
+    )
 }

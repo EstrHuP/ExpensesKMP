@@ -34,28 +34,29 @@ import androidx.compose.ui.unit.sp
 import com.estrhup.expenseskmp.data.ExpenseManager
 import com.estrhup.expenseskmp.getColorsTheme
 import com.estrhup.expenseskmp.model.Expense
+import com.estrhup.expenseskmp.presentation.ExpensesUiState
 import expenseskmp.composeapp.generated.resources.Res
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun ExpensesScreen(onExpenseClick: (expense: Expense) -> Unit) {
+fun ExpensesScreen(uiState: ExpensesUiState, onExpenseClick: (expense: Expense) -> Unit) {
 
     val colors = getColorsTheme()
 
     // LazyColumn == scroll
     LazyColumn(
-        modifier = Modifier.padding(horizontal = 16.dp, vertical = 16.dp), //margin for HStack and VStack
+        modifier = Modifier.padding(16.dp), //margin for HStack and VStack
         verticalArrangement = Arrangement.spacedBy(8.dp) //space for elements space
     ) {
         //Lock header = not scrolling
         stickyHeader {
             Column(modifier = Modifier.background(colors.backgroundColor)) {
-                ExpensesTotalHeader(10234.2)
+                ExpensesTotalHeader(uiState.total)
                 AllExpensesHeader()
             }
         }
         //Items for scrolling
-        items(ExpenseManager.mockExpenseList) {
+        items(uiState.expenses) {
             ExpensesItem(expense = it, onExpenseClick = onExpenseClick)
         }
     }
@@ -118,14 +119,14 @@ fun ExpensesItem(expense: Expense, onExpenseClick: (expense: Expense) -> Unit) {
     val colors = getColorsTheme()
 
     Card(
-        modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp).clickable {
+        modifier = Modifier.fillMaxWidth().clickable {
             onExpenseClick(expense)
         },
         backgroundColor = colors.backgroundColor,
         shape = RoundedCornerShape(30)
     ) {
         Row(
-            modifier = Modifier.padding(horizontal = 8.dp, vertical = 6.dp),
+            modifier = Modifier.padding(horizontal = 18.dp, vertical = 16.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
             //box for icon
@@ -154,7 +155,7 @@ fun ExpensesItem(expense: Expense, onExpenseClick: (expense: Expense) -> Unit) {
                 Text(
                     text = expense.description,
                     fontWeight = FontWeight.SemiBold,
-                    fontSize = 15.sp,
+                    fontSize = 16.sp,
                     color = Color.Gray
                 )
             }

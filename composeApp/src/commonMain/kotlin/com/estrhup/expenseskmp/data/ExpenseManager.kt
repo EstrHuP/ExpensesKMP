@@ -58,6 +58,13 @@ object ExpenseManager {
         }
     }
 
+    fun deleteExpense(expense: Expense) {
+        val index = mockExpenseList.indexOfFirst {
+            it.id == expense.id //Edit expense created
+        }
+        mockExpenseList.removeAt(index)
+    }
+
     fun getCategories(): List<ExpenseCategory> {
         return listOf(
             ExpenseCategory.CAR,
