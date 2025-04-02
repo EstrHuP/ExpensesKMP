@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.estrhup.expenseskmp.domain.ExpenseRepository
 import com.estrhup.expenseskmp.model.Expense
+import com.estrhup.expenseskmp.model.ExpenseCategory
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
@@ -63,5 +64,9 @@ class ExpensesViewModel(private val repo: ExpenseRepository): ViewModel() {
 
     fun getExpenseId(id: Long): Expense {
         return allExpenses.first { it.id == id }
+    }
+
+    fun getCategories(): List<ExpenseCategory> {
+        return repo.getCategories()
     }
 }

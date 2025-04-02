@@ -9,6 +9,7 @@ import com.estrhup.expenseskmp.data.ExpenseManager
 import com.estrhup.expenseskmp.data.ExpenseRepoImpl
 import com.estrhup.expenseskmp.getColorsTheme
 import com.estrhup.expenseskmp.presentation.ExpensesViewModel
+import com.estrhup.expenseskmp.ui.ExpenseDetailScreen
 import com.estrhup.expenseskmp.ui.ExpensesScreen
 import moe.tlaster.precompose.flow.collectAsStateWithLifecycle
 import moe.tlaster.precompose.navigation.NavHost
@@ -37,11 +38,21 @@ fun Navigation(navigator: Navigator) {
             }
         }
 
-        scene(route = "/addExpense/{id}") {
+        scene(route = "/addExpense/{id}?") {
             val idFromPath = it.path<Long>("id") //Get last id (expense.id)
-            val isAddExpense = idFromPath?.let { id -> viewModel.getExpenseId(id) } //(.let) == (if != nil)
+            val expenseToEditOrAdd = idFromPath?.let { id -> viewModel.getExpenseId(id) } //(.let) == (if != nil)
 
-            //TODO: ExpenseDetailScreen
+            ExpenseDetailScreen(
+                expenseToEdit = expenseToEditOrAdd,
+                categoryList = viewModel.getCategories()
+            ) { expense ->
+                if(expenseToEditOrAdd == null) {
+                    viewModel.addExpense(expense)
+                } else {
+                    viewModel.editExpense(expense)
+                }
+                navigator.popBackStack()
             }
         }
     }
+}
