@@ -38,11 +38,14 @@ kotlin {
             implementation(compose.runtime)
             implementation(compose.foundation)
             implementation(compose.material)
+            api(compose.materialIconsExtended) // more icons
             implementation(compose.ui)
             implementation(compose.components.resources)
             implementation(compose.components.uiToolingPreview)
             implementation(libs.androidx.lifecycle.viewmodel)
             implementation(libs.androidx.lifecycle.runtime.compose)
+            api("moe.tlaster:precompose:1.5.10") //Navigation PreCompose
+            api("moe.tlaster:precompose-viewmodel:1.5.10") //ViewModel
         }
     }
 }
@@ -71,6 +74,10 @@ android {
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
+    }
+    // Show view in preview
+    buildFeatures {
+        compose = true
     }
 }
 
